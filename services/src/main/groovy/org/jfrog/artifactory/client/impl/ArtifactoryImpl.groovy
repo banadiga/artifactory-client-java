@@ -119,7 +119,11 @@ class ArtifactoryImpl implements Artifactory {
 
         def responseType = Enum.valueOf(ContentType.class, request.getResponseType().getText())
         def requestType  = Enum.valueOf(ContentType.class, request.getRequestType().getText())
-        def requestPath  = "/${request.getApiUrl()}"
+
+        def requestPath  = request.getApiUrl()
+        if (!requestPath.startsWith('/')) {
+            requestPath = "/$requestPath"
+        }
 
         switch (request.getMethod()) {
             case (ArtifactoryRequest.Method.GET):

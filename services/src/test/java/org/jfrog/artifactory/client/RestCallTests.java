@@ -37,6 +37,16 @@ public class RestCallTests extends ArtifactoryTestsBase {
     }
 
     @Test
+    public void testRequestStartWithSlash() {
+        ArtifactoryRequest systemInfo = new ArtifactoryRequestImpl()
+            .method(ArtifactoryRequest.Method.GET)
+            .apiUrl("/api/system/ping")
+            .responseType(ArtifactoryRequest.ContentType.TEXT);
+        String response = artifactory.restCall(systemInfo);
+        assertTrue(response.equals("OK"));
+    }
+
+    @Test
     public void testRequestWithJsonResponse() {
         ArtifactoryRequest versionRequest = new ArtifactoryRequestImpl()
                 .apiUrl("api/system/version")
